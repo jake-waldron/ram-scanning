@@ -18,8 +18,8 @@ async function startServer() {
 
 		dbSetup();
 
-		app().listen(3000, () => {
-			console.log('Server connected. Listening on port 3000');
+		app().listen(8080, () => {
+			console.log('Server connected. Listening on port 8080');
 		});
 	} catch (err) {
 		console.error(err);

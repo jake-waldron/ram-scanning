@@ -15,10 +15,18 @@ services:
   server:
     build: ./server
     ports:
-      - '3000:3000'
+      - '8080:8080'
     volumes:
       - './server/:/app/server'
       - '/app/server/node_modules'
     depends_on:
       - postgres
-    
+  # client:
+  #   build: ./client
+  #   ports:
+  #     - '3000:3000'
+  #   volumes:
+  #     - './client/:/app/client'
+  #     - '/app/client/node_modules'
+  #   stdin_open: true
+  #   tty: true
