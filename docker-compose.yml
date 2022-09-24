@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=jakewaldron
+      - PGUSER="$POSTGRES_USER"
+      - POSTGRES_DB=return_scanning
+      - PGDATABASE="$POSTGRES_DB"
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - './server/dbStuff/:/app/server/dbStuff/'
+  server:
+    build: ./server
+    ports:
+      - '3000:3000'
+    volumes:
+      - './server/:/app/server'
+      - '/app/server/node_modules'
+    depends_on:
+      - postgres
+    
