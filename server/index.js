@@ -2,7 +2,7 @@ const path = require('path');
 const app = require('./src/app');
 const pool = require('./src/pool');
 
-const dbSetup = require('./src/dbSetup');
+const dbSetup = require('./src/utils/dbSetup');
 
 const categories = path.join(__dirname, '/dbStuff/categories.csv');
 
@@ -16,7 +16,7 @@ async function startServer() {
 			password: 'password',
 		});
 
-		dbSetup();
+		// dbSetup();
 
 		app().listen(8080, () => {
 			console.log('Server connected. Listening on port 8080');

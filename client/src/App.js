@@ -18,19 +18,26 @@ function App() {
 	}
 
 	return (
-		<>
-			<h1>Find Product</h1>
-			<input
-				type="text"
-				name="id"
-				value={id}
-				onChange={(e) => {
-					setId(e.target.value);
-				}}
-			/>
-			<button onClick={getProduct}> Find Product </button>
-			{product && product.map((product) => <ProductInfo product={product} />)}
-		</>
+		<main>
+			<section className="search">
+				<h1>Find Product</h1>
+				<input
+					type="text"
+					name="id"
+					value={id}
+					onChange={(e) => {
+						setId(e.target.value);
+					}}
+				/>
+				<button onClick={getProduct}> Find Product </button>
+			</section>
+			<section className="products">
+				{product &&
+					product.map((product) => (
+						<ProductInfo product={product} key={product.number} />
+					))}
+			</section>
+		</main>
 	);
 }
 
