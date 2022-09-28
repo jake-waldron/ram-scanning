@@ -1,0 +1,19 @@
+.product_info {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    /* gap: 10%; */
+    /* background-color: red; */
+    border: 3px solid black;
+    justify-content: space-evenly;
+}
+
+.product_info__section {
+    padding: 1%;
+}
+
+.product_info__section:nth-of-type(2n) {
+    background-color: rgb(205, 205, 205);
+    border-right:  2px solid black;
+    border-left:  2px solid black;
+}
