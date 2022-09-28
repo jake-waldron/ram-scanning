@@ -14,14 +14,14 @@ async function dbSetup() {
                     `);
 	await pool.query(`
                     CREATE TABLE IF NOT EXISTS products (
-                        product_number VARCHAR(20) PRIMARY KEY,
-                        product_name VARCHAR(100),
-                        product_category VARCHAR(100) REFERENCES categories(product_category),
-                        product_weight NUMERIC
+                        number VARCHAR(20) PRIMARY KEY,
+                        name VARCHAR(100),
+                        category VARCHAR(100) REFERENCES categories(product_category),
+                        weight NUMERIC
                         );
                     `);
 	await pool.query(`
-                        COPY products(product_number, product_name, product_category, product_weight)
+                        COPY products(number, name, category, weight)
                         FROM '/app/server/dbStuff/raw_inventory.csv'
                         WITH DELIMITER ','
                         CSV HEADER

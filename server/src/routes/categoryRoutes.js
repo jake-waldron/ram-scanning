@@ -1,14 +1,10 @@
 const express = require('express');
-const pool = require('../pool');
-const SQL = require('sql-template-strings');
+const categoryController = require('./../controllers/categoryController');
 
 const router = express.Router();
 
-router.get('/categories', async (req, res, next) => {
-	// console.log('request incoming');
-	// res.send('IT worked!');
-	const { rows } = await pool.query('SELECT * FROM categories');
-	res.send(rows);
-});
+router.route('/').get(categoryController.findAll);
+
+router.route('/:category').get(categoryController.findOne);
 
 module.exports = router;

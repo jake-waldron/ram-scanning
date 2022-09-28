@@ -1,20 +1,17 @@
 const pool = require('../pool');
 const SQL = require('sql-template-strings');
 
+const productRepo = require('../repos/productRepo');
+
 async function findAll(req, res, next) {
-	const { rows } = await pool.query('SELECT * FROM products');
-	res.send(rows);
+	const products = await productRepo.findAll();
+	res.send(products);
 }
 
 async function findOne(req, res, next) {
 	const { id } = req.params;
-	const { rows } = await pool.query(
-		SQL`SELECT *, months 
-            FROM products 
-            JOIN categories ON categories.product_category = products.product_category
-            WHERE product_number = ${id}`
-	);
-	res.send(rows);
+	const product = await productRepo.findProductById(id);
+	res.send(product);
 }
 
 module.exports = {
