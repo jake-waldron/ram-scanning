@@ -1,29 +1,29 @@
 import styles from './productInfo.module.css';
 
 export default function ProductInfo({ product }) {
-	const { number, name, category, weight, months } = product;
+	const { number, name, lotNumber, age, status } = product;
 
 	return (
 		<div className={styles.product_info}>
 			<div className={styles.product_info__section}>
-				<h2>Name</h2>
+				<h2>Part Number</h2>
 				<p>{name}</p>
 			</div>
 			<div className={styles.product_info__section}>
-				<h2>number</h2>
+				<h2>Name</h2>
 				<p>{number}</p>
 			</div>
 			<div className={styles.product_info__section}>
-				<h2>category</h2>
-				<p>{category}</p>
+				<h2>Lot</h2>
+				<p>{lotNumber}</p>
 			</div>
 			<div className={styles.product_info__section}>
-				<h2>weight</h2>
-				<p>{weight}</p>
+				<h2>Age</h2>
+				<p>{age}</p>
 			</div>
 			<div className={styles.product_info__section}>
-				<h2>months</h2>
-				<p>{months}</p>
+				<h2>Status</h2>
+				<p>{status}</p>
 			</div>
 		</div>
 	);

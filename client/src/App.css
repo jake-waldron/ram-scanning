@@ -16,13 +16,28 @@ main {
 }
 
 section.search {
-  padding: 100px;
+  padding: 25px;
+}
+
+section.scan-buttons {
+  padding: 50px;
+}
+
+section.scan-buttons button {
+  padding: 25px;
+  margin: 50px;
 }
 
 section.products{
-  width: 100%;
+  width: 75%;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   justify-content: center;
+}
+
+section.hidden{
+  opacity: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
