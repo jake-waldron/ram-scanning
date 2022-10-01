@@ -3,7 +3,7 @@ const scanController = require('./../controllers/scanController');
 
 const router = express.Router();
 
-router.route('/:scan').post(scanController.getProduct);
+router.route('/find-expired-product').get(scanController.findExpiredProduct);
 
 // router.route('/:id').get(productController.findOne);
 
