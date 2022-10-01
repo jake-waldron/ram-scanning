@@ -1,6 +1,6 @@
 const pool = require('../pool');
 
-async function dbSetup() {
+async function dbInit() {
 	await pool.query(`
                     CREATE TABLE IF NOT EXISTS categories (
                         product_category VARCHAR(100) PRIMARY KEY,
@@ -28,4 +28,4 @@ async function dbSetup() {
                     `);
 }
 
-module.exports = dbSetup;
+module.exports = dbInit;

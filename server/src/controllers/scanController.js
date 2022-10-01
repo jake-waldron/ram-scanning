@@ -5,11 +5,11 @@ const productRepo = require('./../repos/productRepo');
 
 async function getProduct(req, res, next) {
 	console.log(req.params.scan);
-	const processedScans = splitScans(req.params.scan);
+	const processedScan = splitScans(req.params.scan);
+	const productInfo = await getProductInfo(processedScan);
 	// ADD THIS BACK IN AFTER REFACTOR
 	// const olderProducts = filterOutNewProducts(processedScans, 6);
 	// const productInfo = await getProductInfo(olderProducts);
-	const productInfo = await findProduct(processedScans);
 	// const [expiredProducts, expiringSoon] = checkForExpiredProducts(productInfo);
 	// res.status(200).json({
 	// 	status: 'success',
@@ -32,32 +32,10 @@ function splitScans(scannedItem) {
 	return product;
 }
 
-async function getProductInfo(scannedList) {
-	const product = findProduct(scannedList);
-	return product;
-}
-
-async function findProduct(productToFind) {
-	// find product in DB
-	// - make alt numbers to check
-	// - check alt numbers, if found (return that)
-	// - if not, find original number, return that
-
-	// doing two DB searches isn't ideal either - can I do it in one somehow?
-
-	const altDBSearchNumbers = makeAltPartNumbers(productToFind.partNumber);
-	const altSearchResults = await productRepo.findProductByIdList(
-		altDBSearchNumbers
-	);
-
-	const originalPartNumber = await productRepo.findProductById(
+async function getProductInfo(productToFind) {
+	const foundProduct = await productRepo.findProductById(
 		productToFind.partNumber
 	);
-
-	///// THIS NEEDS WORK
-	// ex. 03060B (101 fast qt) returns 03061 (epoxamite 101 1-gal)
-
-	const foundProduct = altSearchResults ?? originalPartNumber;
 
 	if (foundProduct) {
 		const { number, name, category, months } = foundProduct;
@@ -79,13 +57,6 @@ async function findProduct(productToFind) {
 			lotNumber: 0000,
 		};
 	}
-}
-
-function makeAltPartNumbers(partNumber) {
-	const noLeadingZero = partNumber.slice(1);
-	const trial = partNumber.slice(0, partNumber.length - 1) + '1';
-	const fullKit = partNumber.slice(0, partNumber.length - 2) + '1';
-	return [noLeadingZero, trial, fullKit];
 }
 
 function getAge(product) {
