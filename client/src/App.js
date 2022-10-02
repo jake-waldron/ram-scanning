@@ -1,61 +1,19 @@
 import './App.css';
 import axios from 'axios';
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import Scanning from './components/Scanning/scanning';
 import ProductInfo from './components/ProductInfo/productInfo';
 
 function App() {
-	const input = useRef();
-	const [scan, setScan] = useState('');
-	const [productList, setProductList] = useState([]);
-	const [scanning, setScanning] = useState(false);
-
-	async function getProduct() {
-		console.log(`Getting info for ${scan}`);
-		const { data: productInfo } = await axios.get(
-			`http://localhost:8080/api/scan/find-expired-product/`,
-			{ params: { scan } }
-		);
-		console.log(productInfo);
-		setProductList((prevList) => [...prevList, productInfo]);
-		setScan('');
-		input.current.focus();
-	}
-
-	function startScanning() {
-		setScanning(true);
-		input.current.focus();
-	}
-
-	function stopScanning() {
-		setScanning(false);
-	}
-
+	const isScanning = useSelector((state) => state.scanner.isScanning);
+	const productList = useSelector((state) => state.scanner.productList);
 	return (
 		<main>
-			<section className="search">
-				<h1>Find Product</h1>
-				<input
-					ref={input}
-					type="text"
-					name="id"
-					value={scan}
-					onChange={(e) => {
-						setScan(e.target.value);
-					}}
-				/>
-				<button onClick={getProduct}> Find Product </button>
-			</section>
-			<section className="scan-buttons">
-				<button disabled={scanning} onClick={startScanning}>
-					Start Scanning
-				</button>
-				<button disabled={!scanning} onClick={stopScanning}>
-					Stop Scanning
-				</button>
-			</section>
+			<Scanning />
 			<section className="products">
-				{!scanning &&
+				{!isScanning &&
 					productList &&
 					productList.map((product) => (
 						<ProductInfo product={product} key={product.number} />

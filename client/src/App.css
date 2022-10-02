@@ -15,18 +15,7 @@ main {
   align-items: center;
 }
 
-section.search {
-  padding: 25px;
-}
 
-section.scan-buttons {
-  padding: 50px;
-}
-
-section.scan-buttons button {
-  padding: 25px;
-  margin: 50px;
-}
 
 section.products{
   width: 75%;

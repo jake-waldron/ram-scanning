@@ -4,12 +4,14 @@ services:
     restart: always
     ports:
       - '5432:5432'
-    environment:
-      - POSTGRES_USER=jakewaldron
-      - PGUSER="$POSTGRES_USER"
-      - POSTGRES_DB=return_scanning
-      - PGDATABASE="$POSTGRES_DB"
-      - POSTGRES_PASSWORD=password
+    env_file:
+      - database.env
+    # environment:
+    #   - POSTGRES_USER=jakewaldron
+    #   - PGUSER="$POSTGRES_USER"
+    #   - POSTGRES_DB=return_scanning
+    #   - PGDATABASE="$POSTGRES_DB"
+    #   - POSTGRES_PASSWORD=password
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./server/dbStuff/:/app/server/dbStuff/
@@ -17,6 +19,8 @@ services:
     build: ./server
     ports:
       - '8080:8080'
+    env_file:
+      - server.env
     volumes:
       - ./server/:/app/server
       - /app/server/node_modules
