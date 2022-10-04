@@ -26,13 +26,13 @@ services:
       - /app/server/node_modules
     depends_on:
       - postgres
-    command: sh -c './wait-for postgres:5432 -- npm start'
+    command: sh -c '/app/server/wait-for postgres:5432 -- npm start'
   client:
     build: ./client
     ports:
       - '3000:3000'
     volumes:
-      - ./client/src:/app/client/src
+      - ./client:/app/client
       - /app/client/node_modules
     stdin_open: true
     tty: true

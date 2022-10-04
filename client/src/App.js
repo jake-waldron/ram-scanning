@@ -1,9 +1,7 @@
 import './App.css';
-import axios from 'axios';
-import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import Scanning from './components/Scanning/scanning';
+import Scanner from './components/Scanner/scanner';
 import ProductInfo from './components/ProductInfo/productInfo';
 
 function App() {
@@ -11,7 +9,7 @@ function App() {
 	const productList = useSelector((state) => state.scanner.productList);
 	return (
 		<main>
-			<Scanning />
+			<Scanner />
 			<section className="products">
 				{!isScanning &&
 					productList &&

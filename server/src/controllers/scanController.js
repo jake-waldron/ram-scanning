@@ -4,7 +4,7 @@ const SQL = require('sql-template-strings');
 const productRepo = require('./../repos/productRepo');
 
 async function findExpiredProduct(req, res, next) {
-	const scanInput = req.query.scan;
+	const scanInput = req.query.scannedItem;
 	const product = await getProduct(scanInput);
 	const productStatus = getProductStatus(product);
 	res.send(productStatus);

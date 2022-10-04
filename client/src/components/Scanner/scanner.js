@@ -1,20 +1,15 @@
 import './scanning.css';
 import axios from 'axios';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { scannerActions } from '../../store/scannerSlice';
 
-export default function Scanning() {
+export default function Scanner() {
 	const input = useRef();
 	const dispatch = useDispatch();
 	const scannedItem = useSelector((state) => state.scanner.scannedItem);
-	// const productList = useSelector((state) => state.scanner.productList);
 	const isScanning = useSelector((state) => state.scanner.isScanning);
-
-	// const [scan, setScan] = useState('');
-	// const [productList, setProductList] = useState([]);
-	// const [scanning, setScanning] = useState(false);
 
 	async function getProduct() {
 		console.log(`Getting info for ${scannedItem}`);
@@ -24,27 +19,23 @@ export default function Scanning() {
 		);
 		console.log(productInfo);
 		dispatch(scannerActions.addProductToList(productInfo));
-		// setProductList((prevList) => [...prevList, productInfo]);
 		dispatch(scannerActions.clearScanner());
-		// setScan('');
 		input.current.focus();
 	}
 
 	function startScanning() {
-		// setScanning(true);
 		dispatch(scannerActions.startScanning());
 		input.current.focus();
 	}
 
 	function stopScanning() {
 		dispatch(scannerActions.stopScanning());
-		// setScanning(false);
 	}
 
 	return (
 		<>
 			<section className="search">
-				<h1>Find Product</h1>
+				<label>Find Product</label>
 				<input
 					ref={input}
 					type="text"
