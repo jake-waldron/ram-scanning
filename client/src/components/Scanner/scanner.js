@@ -1,15 +1,17 @@
-import './scanning.css';
+import './scanner.css';
 import axios from 'axios';
-import { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useRef, useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux'
+// import { scannerActions } from '../../store/scannerSlice';;
 
-import { scannerActions } from '../../store/scannerSlice';
-
-export default function Scanner() {
+export default function Scanner({
+	isScanning,
+	startScanning,
+	stopScanning,
+	addProduct,
+}) {
 	const input = useRef();
-	const dispatch = useDispatch();
-	const scannedItem = useSelector((state) => state.scanner.scannedItem);
-	const isScanning = useSelector((state) => state.scanner.isScanning);
+	const [scannedItem, setScannedItem] = useState('');
 
 	async function getProduct() {
 		console.log(`Getting info for ${scannedItem}`);
@@ -18,23 +20,24 @@ export default function Scanner() {
 			{ params: { scannedItem } }
 		);
 		console.log(productInfo);
-		dispatch(scannerActions.addProductToList(productInfo));
-		dispatch(scannerActions.clearScanner());
+		addProduct(productInfo);
+		setScannedItem('');
 		input.current.focus();
 	}
 
-	function startScanning() {
-		dispatch(scannerActions.startScanning());
+	function onStartScanning() {
+		startScanning();
 		input.current.focus();
 	}
 
-	function stopScanning() {
-		dispatch(scannerActions.stopScanning());
+	function onStopScanning() {
+		stopScanning();
 	}
 
 	return (
-		<>
-			<section className="search">
+		<section className="scanner">
+			{isScanning && <h1>Scanning in progress</h1>}
+			<div className="search">
 				<label>Find Product</label>
 				<input
 					ref={input}
@@ -42,19 +45,27 @@ export default function Scanner() {
 					name="id"
 					value={scannedItem}
 					onChange={(e) => {
-						dispatch(scannerActions.setScannedItem(e.target.value));
+						setScannedItem(e.target.value);
 					}}
 				/>
 				<button onClick={getProduct}> Find Product </button>
-			</section>
+			</div>
 			<section className="scan-buttons">
-				<button disabled={isScanning} onClick={startScanning}>
+				<button
+					className="start"
+					disabled={isScanning}
+					onClick={onStartScanning}
+				>
 					Start Scanning
 				</button>
-				<button disabled={!isScanning} onClick={stopScanning}>
+				<button
+					className="stop"
+					disabled={!isScanning}
+					onClick={onStopScanning}
+				>
 					Stop Scanning
 				</button>
 			</section>
-		</>
+		</section>
 	);
 }
