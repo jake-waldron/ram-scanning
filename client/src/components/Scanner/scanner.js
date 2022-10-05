@@ -36,7 +36,9 @@ export default function Scanner({
 
 	return (
 		<section className="scanner">
-			{isScanning && <h1>Scanning in progress</h1>}
+			<div className={`scanning-text ${isScanning ? '' : 'hidden'}`}>
+				Scanning in progress
+			</div>
 			<div className="search">
 				<label>Find Product</label>
 				<input
