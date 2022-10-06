@@ -1,5 +1,5 @@
 import Scanner from '../components/Scanner/scanner';
-import ProductInfo from '../components/ProductInfo/productInfo';
+import ExpiredProducts from '../components/ExpiredProducts/expiredProducts';
 import { useState } from 'react';
 
 export default function FindExpiredProducts() {
@@ -30,13 +30,10 @@ export default function FindExpiredProducts() {
 					isScanning={isScanning}
 				/>
 			)}
-			<section className="products">
-				{!isScanning &&
-					productList &&
-					productList.map((product) => (
-						<ProductInfo product={product} key={product.number} />
-					))}
-			</section>
+
+			{!isScanning && productList.length > 0 && (
+				<ExpiredProducts productList={productList} />
+			)}
 		</>
 	);
 }
