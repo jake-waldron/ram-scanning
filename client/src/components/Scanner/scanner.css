@@ -66,9 +66,15 @@ section.scan-buttons button {
   border-radius: 28px;
 }
 
+button:enabled {
+  cursor: pointer;
+
+}
+
 button:disabled {
   opacity: 25%;
   transition: .1s;
+  cursor: no-drop;
 }
 
 /* button:enabled {

@@ -1,7 +1,14 @@
-section.products {
+section.products-container{
     position: absolute;
     top: 200px;
-}
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    justify-content: center;
+    border-radius: 1rem;
+    
+  }
 
 ul.tab-nav {
     list-style: none;
@@ -10,28 +17,48 @@ ul.tab-nav {
     justify-content: space-around;
     margin: 0px;
     padding: 0px;
+    
 }
 
 ul.tab-nav li {
     text-align: center;
     flex: 1;
     border-radius: 2rem 2rem 0 0;
+    cursor: pointer;
 }
 
 ul.tab-nav .active-tab {
     /* background-color: hsl(0, 0%, 80%); */
-    background-color: hsl(94, 68%, 91%);
-    box-shadow: inset .5rem .5rem 5rem #8080802d, inset -0.5rem .5rem 5rem #8080802d;
+    /* background-color: hsl(94, 68%, 91%); */
+    background-color: hsl(0, 0%, 97%);
+    border: 2px solid hsl(0, 0%, 75%);
+    border-bottom: 0;
+    /* box-shadow: inset .5rem .5rem 5rem #8080802d, inset -0.5rem .5rem 5rem #8080802d; */
     
     /* background-color: red; */
 }
 
 ul.tab-nav .inactive-tab {
-    background-color: hsla(0, 0%, 75%, 0.1);
-    box-shadow: inset .5rem .5rem .5rem #8080802d, inset -0.5rem .5rem .5rem #8080802d;
-    opacity: 50%
+    background-color: hsla(0, 0%, 75%, 0.05);
+    box-shadow: inset .5rem .5rem .5rem hsla(0, 0%, 50%, 0.05), inset -0.5rem .5rem .5rem hsla(0, 0%, 50%, 0.05);
+    border-bottom: 2px solid hsl(0, 0%, 75%);
+    /* opacity: 40%; */
+}
+
+ul.tab-nav .inactive-tab h2 {
+    opacity: 40%;
 }
 
 ul.tab-nav h2 {
     margin-bottom: 1rem;
+}
+
+.products-list {
+    border-radius: 0 0 1rem 1rem;
+    border: 2px solid hsl(0, 0%, 75%);
+    border-top: 0;
+}
+
+.products-not-found {
+    text-align: center;
 }

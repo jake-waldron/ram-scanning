@@ -31,9 +31,7 @@ export default function FindExpiredProducts() {
 				/>
 			)}
 
-			{!isScanning && productList.length > 0 && (
-				<ExpiredProducts productList={productList} />
-			)}
+			{!showScanner && <ExpiredProducts productList={productList} />}
 		</>
 	);
 }
