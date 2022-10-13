@@ -2,13 +2,14 @@ FROM node:alpine as builder
 
 WORKDIR /app/client
 
-COPY package.json ./
+COPY package.json .
 
 RUN npm install
 
 COPY . .
 
-CMD [ "npm", "run", "build" ]
+RUN npm run build
+# CMD ["npm", "start"]
 
 FROM nginx:1.21.0-alpine as production
 # Copy built assets from builder

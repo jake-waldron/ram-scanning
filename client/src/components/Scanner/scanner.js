@@ -1,8 +1,6 @@
 import './scanner.css';
 import axios from 'axios';
 import { useRef, useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux'
-// import { scannerActions } from '../../store/scannerSlice';;
 
 export default function Scanner({
 	isScanning,
@@ -13,7 +11,7 @@ export default function Scanner({
 	const input = useRef();
 	const [scannedItem, setScannedItem] = useState('');
 
-	async function getProduct() {
+	async function getProduct(scannedItem) {
 		console.log(`Getting info for ${scannedItem}`);
 		const { data: productInfo } = await axios.get(
 			`http://localhost:8080/api/scan/find-expired-product/`,
@@ -40,17 +38,24 @@ export default function Scanner({
 				Scanning in progress
 			</div>
 			<div className="search">
-				<label>Find Product</label>
-				<input
-					ref={input}
-					type="text"
-					name="id"
-					value={scannedItem}
-					onChange={(e) => {
-						setScannedItem(e.target.value);
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						getProduct(scannedItem);
 					}}
-				/>
-				<button onClick={getProduct}> Find Product </button>
+				>
+					<label>Find Product</label>
+					<input
+						ref={input}
+						type="text"
+						name="id"
+						value={scannedItem}
+						onChange={(e) => {
+							setScannedItem(e.target.value);
+						}}
+					/>
+					<button type="submit"> Find Product </button>
+				</form>
 			</div>
 			<section className="scan-buttons">
 				<button

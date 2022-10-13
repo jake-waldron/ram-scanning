@@ -23,7 +23,7 @@ async function startServer() {
 			password: process.env.POSTGRES_PASSWORD,
 		});
 
-		// dbInit();
+		dbInit();
 
 		app().listen(8080, () => {
 			console.log('Server connected. Listening on port 8080');
