@@ -102,7 +102,7 @@ function getProductStatus(product) {
 		);
 		return {
 			...product,
-			expiresIn: monthsUntilExpiration,
+			monthsUntilExpiration: monthsUntilExpiration,
 			expiresOnMonth: `${expDate.getMonth() + 1}/${expDate.getFullYear()}`,
 			status: 'EXPIRING SOON',
 		};

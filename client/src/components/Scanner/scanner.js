@@ -13,12 +13,16 @@ export default function Scanner({
 
 	async function getProduct(scannedItem) {
 		console.log(`Getting info for ${scannedItem}`);
-		const { data: productInfo } = await axios.get(
-			`http://localhost:8080/api/scan/find-expired-product/`,
-			{ params: { scannedItem } }
-		);
-		console.log(productInfo);
-		addProduct(productInfo);
+		try {
+			const { data: productInfo } = await axios.get(
+				`http://localhost:8080/api/scan/find-expired-product/`,
+				{ params: { scannedItem } }
+			);
+			console.log(productInfo);
+			addProduct(productInfo);
+		} catch (err) {
+			console.error(err);
+		}
 		setScannedItem('');
 		input.current.focus();
 	}
