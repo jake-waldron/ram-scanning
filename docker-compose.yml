@@ -6,16 +6,22 @@ services:
       - '5432:5432'
     env_file:
       - database.env
-    # environment:
-    #   - POSTGRES_USER=jakewaldron
-    #   - PGUSER="$POSTGRES_USER"
-    #   - POSTGRES_DB=return_scanning
-    #   - PGDATABASE="$POSTGRES_DB"
-    #   - POSTGRES_PASSWORD=password
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./server/dbStuff/:/app/server/dbStuff/
-  server:
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    # links:
+    #   - "postgres"
+    #   - "api"
+    #   - "client"
+    depends_on:
+      - api
+      - client
+  api:
     build: ./server
     ports:
       - '8080:8080'
@@ -24,20 +30,26 @@ services:
     volumes:
       - ./server/:/app/server
       - /app/server/node_modules
+    # links:
+    #   - "client"
+    #   - "postgres"
     depends_on:
       - postgres
     command: sh -c '/app/server/wait-for postgres:5432 -- npm start'
   client:
     build: ./client
-    ports:
-      - '80:80'
+    # ports:
+    #   - '80:80'
     volumes:
       - ./client:/app/client
       - /app/client/node_modules
     stdin_open: true
     tty: true
+    links:
+      # - "nginx"
+      - "api"
     depends_on:
-      - server
+      - api
 
 volumes:
   postgres-data:
