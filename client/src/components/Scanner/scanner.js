@@ -1,6 +1,6 @@
 import './scanner.css';
 import axios from 'axios';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 export default function Scanner({
 	isScanning,
@@ -10,6 +10,18 @@ export default function Scanner({
 }) {
 	const input = useRef();
 	const [scanInput, setScanInput] = useState('');
+
+	const clickHandler = useCallback(() => {
+		input.current.focus();
+	});
+
+	useEffect(() => {
+		window.addEventListener('click', clickHandler);
+
+		return () => {
+			window.removeEventListener('click', clickHandler);
+		};
+	}, []);
 
 	async function getProduct(product) {
 		const scannedItem = product;

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import ProductList from '../ProductList/productList';
 
+import _ from 'lodash';
+
 import './expiredProducts.css';
 
 // const productListTest = [
@@ -68,14 +70,21 @@ import './expiredProducts.css';
 // 	},
 // ];
 
-export default function ExpiredProducts({ productList }) {
-	const [currentTab, setCurrentTab] = useState('expired');
-	const expiredProducts = productList.filter(
+function filterLists(productList) {
+	const removeDuplicates = _.uniqWith(productList, _.isEqual);
+	const expiredProducts = removeDuplicates.filter(
 		(product) => product.status === 'EXPIRED'
 	);
-	const expiringSoon = productList.filter(
+	const expiringSoon = removeDuplicates.filter(
 		(product) => product.status === 'EXPIRING SOON'
 	);
+	return [expiredProducts, expiringSoon];
+}
+
+export default function ExpiredProducts({ productList }) {
+	const [currentTab, setCurrentTab] = useState('expired');
+	const [expiredProducts, expiringSoon] = filterLists(productList);
+
 	// const expiredProducts = productListTest.filter(
 	// 	(product) => product.status === 'EXPIRED'
 	// );
