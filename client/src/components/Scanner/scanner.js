@@ -9,13 +9,16 @@ export default function Scanner({
 	addProduct,
 }) {
 	const input = useRef();
-	const [scannedItem, setScannedItem] = useState('');
+	const [scanInput, setScanInput] = useState('');
 
-	async function getProduct(scannedItem) {
+	async function getProduct(product) {
+		const scannedItem = product;
+		setScanInput('');
+		input.current.focus();
 		console.log(`Getting info for ${scannedItem}`);
 		try {
 			const { data: productInfo } = await axios.get(
-				`http://localhost:8080/api/scan/find-expired-product/`,
+				`http://165.227.94.104/api/scan/find-expired-product/`,
 				{ params: { scannedItem } },
 				{ headers: { 'Access-Control-Request-Private-Network': true } }
 			);
@@ -24,8 +27,6 @@ export default function Scanner({
 		} catch (err) {
 			console.error(err);
 		}
-		setScannedItem('');
-		input.current.focus();
 	}
 
 	function onStartScanning() {
@@ -46,7 +47,7 @@ export default function Scanner({
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
-						getProduct(scannedItem);
+						getProduct(scanInput);
 					}}
 				>
 					<label>Find Product</label>
@@ -54,9 +55,9 @@ export default function Scanner({
 						ref={input}
 						type="text"
 						name="id"
-						value={scannedItem}
+						value={scanInput}
 						onChange={(e) => {
-							setScannedItem(e.target.value);
+							setScanInput(e.target.value);
 						}}
 					/>
 					<button type="submit"> Find Product </button>

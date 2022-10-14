@@ -1,7 +1,7 @@
 import styles from './productInfo.module.css';
 
 export default function ProductInfo({ product }) {
-	const { number, name, lotNumber, age } = product;
+	const { number, name, lotNumber, age, status } = product;
 
 	return (
 		<div className={styles.product_info}>
@@ -17,25 +17,23 @@ export default function ProductInfo({ product }) {
 				<h3>Age:</h3>
 				<span>{age} months</span>
 			</div>
-			{/* {<div>
-				<h3>Status:</h3>
-				<span>{status}</span>
-			</div>} */}
-			{product?.monthsPastExpirationBy && (
+			{status === 'EXPIRED' && (
 				<div className={styles.product_info__item}>
 					<h3>Over limit by:</h3>
 					<span>
-						{product.monthsPastExpirationBy}{' '}
+						{product.monthsPastExpirationBy === 0
+							? 'Just expired this'
+							: product.monthsPastExpirationBy}{' '}
 						{product.monthsPastExpirationBy > 1 ? 'months' : 'month'}
 					</span>
 				</div>
 			)}
-			{product?.monthsUntilExpiration && (
+			{status === 'EXPIRING SOON' && (
 				<div className={styles.product_info__item}>
 					<h3>Expires in:</h3>
 					<span>
 						{product.monthsUntilExpiration}{' '}
-						{product.monthsUntilExpiration > 1 ? 'months' : 'month'} (
+						{product.monthsUntilExpiration != 1 ? 'months' : 'month'} (
 						{product.expiresOnMonth})
 					</span>
 				</div>

@@ -14,10 +14,10 @@ services:
     build: ./nginx
     ports:
       - "80:80"
-    # links:
-    #   - "postgres"
-    #   - "api"
-    #   - "client"
+    links:
+      - "postgres"
+      - "api"
+      - "client"
     depends_on:
       - api
       - client
