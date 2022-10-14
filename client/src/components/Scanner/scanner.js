@@ -18,9 +18,8 @@ export default function Scanner({
 		console.log(`Getting info for ${scannedItem}`);
 		try {
 			const { data: productInfo } = await axios.get(
-				`http://165.227.94.104/api/scan/find-expired-product/`,
-				{ params: { scannedItem } },
-				{ headers: { 'Access-Control-Request-Private-Network': true } }
+				`/api/scan/find-expired-product/`,
+				{ params: { scannedItem } }
 			);
 			console.log(productInfo);
 			addProduct(productInfo);
