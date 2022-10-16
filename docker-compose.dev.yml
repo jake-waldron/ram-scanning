@@ -22,18 +22,30 @@ services:
       - api
       - client
   api:
-    build: ./server
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.dev
     ports:
       - '8080:8080'
     env_file:
       - server.env
+    volumes:
+      - ./server/:/app/server
+      - /app/server/node_modules
     depends_on:
       - postgres
     command: sh -c '/app/server/wait-for postgres:5432 -- npm start'
   client:
-    build: ./client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client:/app/client
+      - /app/client/node_modules
     stdin_open: true
     tty: true
+    # ports:
+    #   - "80:3000"
     links:
       - "api"
     depends_on:
