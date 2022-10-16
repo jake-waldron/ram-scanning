@@ -62,3 +62,20 @@ ul.tab-nav h2 {
 .products-not-found {
     text-align: center;
 }
+
+.btn-reset {
+    align-self: center;
+    padding: 0.5rem 2rem;
+    margin: 3rem;
+    font-size: 1.5rem;
+    font-family: Poppins;
+    font-weight: 700;
+    border-width: 0px;
+    color: #fff;
+    border-radius: 28px;
+    background-color: hsl(10, 74%, 62%);
+}
+
+.btn-reset:hover{
+    background-color: hsl(10, 64%, 61%);
+}

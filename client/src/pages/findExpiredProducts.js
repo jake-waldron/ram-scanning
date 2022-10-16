@@ -20,6 +20,12 @@ export default function FindExpiredProducts() {
 		setProductList((prevList) => [...prevList, scannedProduct]);
 	}
 
+	function onResetScanning() {
+		setShowScanner(true);
+		setIsScanning(false);
+		setProductList([]);
+	}
+
 	return (
 		<>
 			{showScanner && (
@@ -31,7 +37,12 @@ export default function FindExpiredProducts() {
 				/>
 			)}
 
-			{!showScanner && <ExpiredProducts productList={productList} />}
+			{!showScanner && (
+				<ExpiredProducts
+					productList={productList}
+					resetScanning={onResetScanning}
+				/>
+			)}
 		</>
 	);
 }

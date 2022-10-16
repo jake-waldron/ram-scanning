@@ -81,7 +81,7 @@ function filterLists(productList) {
 	return [expiredProducts, expiringSoon];
 }
 
-export default function ExpiredProducts({ productList }) {
+export default function ExpiredProducts({ productList, resetScanning }) {
 	const [currentTab, setCurrentTab] = useState('expired');
 	const [expiredProducts, expiringSoon] = filterLists(productList);
 
@@ -122,6 +122,9 @@ export default function ExpiredProducts({ productList }) {
 					<ProductList products={expiringSoon} currentTab={currentTab} />
 				)}
 			</div>
+			<button className="btn-reset" onClick={resetScanning}>
+				Reset
+			</button>
 		</section>
 	);
 }
