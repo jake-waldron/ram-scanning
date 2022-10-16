@@ -18,7 +18,6 @@ div.scanning-text {
   top: 25%;
   font-size: 5rem;
   font-weight: 900;
-  /*    text-transform: uppercase; */
     background-image: linear-gradient(
       0deg,
       #e45d5d 0%,
@@ -34,12 +33,9 @@ div.scanning-text {
     background-size: 100% 200%;
     color: #fff;
     background-clip: text;
-    /* text-fill-color: transparent; */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: textclip 5s linear alternate infinite;
-    /* display: inline-block; */
-    /* font-size: 190px; */
   }
   
   @keyframes textclip {
@@ -77,44 +73,29 @@ button:disabled {
   cursor: no-drop;
 }
 
-/* button:enabled {
-  transition: .3s;
-} */
-
 button:enabled:active {
   translate: 0px 3px;
 }
 
 button.start {
-  border-color: #18ab29;
   box-shadow: 1px 4px 10px 1px rgba(121, 121, 121, 0.66);
   text-shadow: 1px 1px 0px #2f66278b;
-  background: hsl(136, 54%, 52%);
+  background: #1ab394;
 }
 
-/* button.start:enabled:hover {
-  background: rgb(95, 223, 129)
-} */
 button.start:enabled:hover {
-  background: hsl(136, 42%, 51%)
+  background: #17A689;
 }
-/* button.start:enabled:active {
-  background: rgb(95, 223, 129)
-} */
-
 button.stop {
   border-color: #ce4f35;
   box-shadow: 1px 4px 10px 3px rgba(121, 121, 121, 0.66);
   text-shadow: 1px 1px 0px #6630278b;
-  background: hsl(10, 74%, 62%);
+  background: #ec4758;
   /* background-color: #f87d7d; */
 }
 
-/* button.stop:enabled:hover {
-  background-color: rgb(249, 170, 170);
-} */
 button.stop:enabled:hover {
-  background-color: hsl(10, 64%, 61%);
+  background-color: #d9534f;
 }
 
 .hidden{

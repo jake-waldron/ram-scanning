@@ -68,14 +68,14 @@ ul.tab-nav h2 {
     padding: 0.5rem 2rem;
     margin: 3rem;
     font-size: 1.5rem;
-    font-family: Poppins;
+    /* font-family: Poppins; */
     font-weight: 700;
     border-width: 0px;
     color: #fff;
     border-radius: 28px;
-    background-color: hsl(10, 74%, 62%);
+    background-color: #ec4758;
 }
 
 .btn-reset:hover{
-    background-color: hsl(10, 64%, 61%);
+    background-color: #d9534f;
 }
