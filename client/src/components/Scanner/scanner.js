@@ -13,7 +13,7 @@ export default function Scanner({
 
 	const clickHandler = useCallback(() => {
 		input.current.focus();
-	});
+	}, []);
 
 	useEffect(() => {
 		window.addEventListener('click', clickHandler);
@@ -21,7 +21,7 @@ export default function Scanner({
 		return () => {
 			window.removeEventListener('click', clickHandler);
 		};
-	}, []);
+	}, [clickHandler]);
 
 	async function getProduct(product) {
 		const scannedItem = product;

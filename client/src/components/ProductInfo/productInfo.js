@@ -33,7 +33,7 @@ export default function ProductInfo({ product }) {
 					<h3>Expires in:</h3>
 					<span>
 						{product.monthsUntilExpiration}{' '}
-						{product.monthsUntilExpiration != 1 ? 'months' : 'month'} (
+						{product.monthsUntilExpiration !== 1 ? 'months' : 'month'} (
 						{product.expiresOnMonth})
 					</span>
 				</div>
