@@ -79,3 +79,20 @@ ul.tab-nav h2 {
 .btn-reset:hover{
     background-color: #d9534f;
 }
+
+.btn-pdf {
+    align-self: end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 5rem;
+    top: 4rem;
+    width: 4rem;
+    height: 4rem;
+    color: #3e3e3e;
+    /* border: 1px solid #3e3e3e; */
+    border: 2px solid hsl(0, 0%, 75%);
+    border-radius: 50%;
+    background: #f7f7f7;
+}

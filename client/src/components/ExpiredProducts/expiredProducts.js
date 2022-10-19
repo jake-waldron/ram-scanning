@@ -4,6 +4,9 @@ import ProductList from '../ProductList/productList';
 import _ from 'lodash';
 
 import './expiredProducts.css';
+import axios from 'axios';
+
+import PrintSVG from '../UI/PrintSVG';
 
 // const productListTest = [
 // 	{
@@ -92,8 +95,27 @@ export default function ExpiredProducts({ productList, resetScanning }) {
 	// 	(product) => product.status === 'EXPIRING SOON'
 	// );
 
+	async function downloadPDF() {
+		try {
+			const response = await axios({
+				url: '/api/scan/generate-pdf',
+				method: 'post',
+				responseType: 'blob',
+				data: { expiredProducts, expiringSoon },
+			});
+			const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+			const url = URL.createObjectURL(pdfBlob);
+			window.open(url);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	return (
 		<section className="products-container">
+			<button className="btn-pdf" onClick={downloadPDF} title="Print">
+				<PrintSVG />
+			</button>
 			<ul className="tab-nav">
 				<li
 					className={currentTab === 'expired' ? 'active-tab' : 'inactive-tab'}
