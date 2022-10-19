@@ -1,7 +1,61 @@
+const PDFDocument = require('pdfkit');
+
 const pool = require('../pool');
 const SQL = require('sql-template-strings');
 
 const productRepo = require('./../repos/productRepo');
+
+function generatePDF(req, res, next) {
+	const { expiredProducts, expiringSoon } = req.body;
+
+	const doc = new PDFDocument();
+
+	function formatMonthString(numberOfMonths) {
+		return `${numberOfMonths} ${numberOfMonths !== 1 ? 'months' : 'month'}`;
+	}
+
+	function printItem(item) {
+		doc.moveDown();
+		doc.fontSize(16);
+		doc.text(`${item.name}`, { lineGap: 3 });
+		doc.text(`  - Lot : ${item.lotNumber}`, { lineGap: 3 });
+		doc.text(`  - Age : ${item.age}`, { lineGap: 3 });
+		if (item.status === 'EXPIRED') {
+			doc.text(
+				`  - Over limit by : ${formatMonthString(item.monthsPastExpirationBy)}`,
+				{ lineGap: 3 }
+			);
+		}
+		if (item.status === 'EXPIRING SOON') {
+			doc.text(
+				`  - Expires in : ${formatMonthString(item.monthsUntilExpiration)} (${
+					item.expiresOnMonth
+				})`,
+				{ lineGap: 3 }
+			);
+		}
+	}
+
+	doc.pipe(res);
+
+	doc.fontSize(26);
+	doc.text('EXPIRED', {
+		align: 'center',
+	});
+
+	expiredProducts.forEach((item) => printItem(item));
+
+	doc.addPage();
+
+	doc.fontSize(26);
+	doc.text('EXPIRING SOON', {
+		align: 'center',
+	});
+
+	expiringSoon.forEach((item) => printItem(item));
+
+	doc.end();
+}
 
 async function findExpiredProduct(req, res, next) {
 	const scanInput = req.query.scannedItem;
@@ -115,4 +169,5 @@ function getProductStatus(product) {
 
 module.exports = {
 	findExpiredProduct,
+	generatePDF,
 };
