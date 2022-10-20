@@ -110,3 +110,7 @@ button.stop:enabled:hover {
     flex-direction: column; 
   }
 }
+
+.none {
+  display: none;
+}

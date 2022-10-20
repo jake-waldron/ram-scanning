@@ -54,7 +54,7 @@ export default function Scanner({
 			<div className={`scanning-text ${isScanning ? '' : 'hidden'}`}>
 				Scanning in progress
 			</div>
-			<div className="search">
+			<div className={`search ${isScanning ? '' : 'none'}`}>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
