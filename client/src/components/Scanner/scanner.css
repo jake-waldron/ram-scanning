@@ -14,28 +14,27 @@ div.search {
   }
 
 div.scanning-text {
-  position: absolute;
-  top: 25%;
+  text-align: center;
   font-size: 5rem;
   font-weight: 900;
-    background-image: linear-gradient(
-      0deg,
-      #e45d5d 0%,
-      #e45d5d 45%,
-      #fbacac 49%,
-      #f8f4f4 50%,
-      #fbacac 51%,
-      #e45d5d 55%,
-      #e45d5d 100%
-    );
-    background-size: auto auto;
-    background-clip: border-box;
-    background-size: 100% 200%;
-    color: #fff;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textclip 5s linear alternate infinite;
+  background-image: linear-gradient(
+    0deg,
+    #e45d5d 0%,
+    #e45d5d 45%,
+    #fbacac 49%,
+    #f8f4f4 50%,
+    #fbacac 51%,
+    #e45d5d 55%,
+    #e45d5d 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 100% 200%;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear alternate infinite;
   }
   
   @keyframes textclip {
@@ -46,7 +45,11 @@ div.scanning-text {
   }
   
 section.scan-buttons {
-  padding: 50px;
+  padding: 5rem;
+  order: 2;
+  display: flex;
+  align-items: center;
+
 }
 
 section.scan-buttons button {
@@ -91,7 +94,6 @@ button.stop {
   box-shadow: 1px 4px 10px 3px rgba(121, 121, 121, 0.66);
   text-shadow: 1px 1px 0px #6630278b;
   background: #ec4758;
-  /* background-color: #f87d7d; */
 }
 
 button.stop:enabled:hover {
@@ -103,3 +105,8 @@ button.stop:enabled:hover {
   transition: .5s;
 }
 
+@media screen and (max-width: 1000px) {
+  section.scan-buttons {
+    flex-direction: column; 
+  }
+}
