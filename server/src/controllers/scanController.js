@@ -19,10 +19,14 @@ function generatePDF(req, res, next) {
 		doc.fontSize(16);
 		doc.text(`${item.name}`, { lineGap: 3 });
 		doc.text(`  - Lot : ${item.lotNumber}`, { lineGap: 3 });
-		doc.text(`  - Age : ${item.age}`, { lineGap: 3 });
+		doc.text(`  - Age : ${item.age} months`, { lineGap: 3 });
 		if (item.status === 'EXPIRED') {
 			doc.text(
-				`  - Over limit by : ${formatMonthString(item.monthsPastExpirationBy)}`,
+				`  - Over limit by : ${
+					item.monthsPastExpirationBy === 0
+						? 'Just expired this month'
+						: formatMonthString(item.monthsPastExpirationBy)
+				}`,
 				{ lineGap: 3 }
 			);
 		}

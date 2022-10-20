@@ -78,9 +78,12 @@ function filterLists(productList) {
 	const expiredProducts = removeDuplicates.filter(
 		(product) => product.status === 'EXPIRED'
 	);
-	const expiringSoon = removeDuplicates.filter(
-		(product) => product.status === 'EXPIRING SOON'
-	);
+	const expiringSoon = removeDuplicates
+		.filter((product) => product.status === 'EXPIRING SOON')
+		.sort(
+			(productA, productB) =>
+				productA.monthsUntilExpiration - productB.monthsUntilExpiration
+		);
 	return [expiredProducts, expiringSoon];
 }
 
