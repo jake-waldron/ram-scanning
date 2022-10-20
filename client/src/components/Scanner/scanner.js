@@ -7,9 +7,11 @@ export default function Scanner({
 	startScanning,
 	stopScanning,
 	addProduct,
+	productList,
 }) {
 	const input = useRef();
 	const [scanInput, setScanInput] = useState('');
+	const [showFeedback, setShowFeedback] = useState(false);
 
 	const clickHandler = useCallback(() => {
 		input.current.focus();
@@ -23,6 +25,16 @@ export default function Scanner({
 		};
 	}, [clickHandler]);
 
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setShowFeedback(false);
+		}, 1000);
+
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [productList]);
+
 	async function getProduct(product) {
 		const scannedItem = product;
 		setScanInput('');
@@ -35,6 +47,7 @@ export default function Scanner({
 			);
 			console.log(productInfo);
 			addProduct(productInfo);
+			setShowFeedback(true);
 		} catch (err) {
 			console.error(err);
 		}
@@ -47,6 +60,14 @@ export default function Scanner({
 
 	function onStopScanning() {
 		stopScanning();
+	}
+
+	function formatName(productName) {
+		if (!productName) return 'Product not Found';
+		if (productName.indexOf('(') !== -1) {
+			return productName.split('(')[0];
+		}
+		return productName;
 	}
 
 	return (
@@ -90,6 +111,10 @@ export default function Scanner({
 					Stop Scanning
 				</button>
 			</section>
+			<div className={`scan-feedback ${showFeedback ? '' : 'hidden'}`}>
+				Scanned{' '}
+				{productList.length > 0 && `${formatName(productList.at(-1).name)}`}
+			</div>
 		</section>
 	);
 }

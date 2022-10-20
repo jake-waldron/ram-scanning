@@ -114,3 +114,10 @@ button.stop:enabled:hover {
 .none {
   display: none;
 }
+
+.scan-feedback {
+  order: 3;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #e45d5d;
+}

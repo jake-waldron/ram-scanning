@@ -34,6 +34,7 @@ export default function FindExpiredProducts() {
 					stopScanning={onStopScanning}
 					addProduct={onAddProduct}
 					isScanning={isScanning}
+					productList={productList}
 				/>
 			)}
 
