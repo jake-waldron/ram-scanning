@@ -9,18 +9,20 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./server/dbStuff/:/app/server/dbStuff/
-  nginx:
-    restart: always
-    build: ./nginx
-    ports:
-      - "80:80"
-    links:
-      - "postgres"
-      - "api"
-      - "client"
-    depends_on:
-      - api
-      - client
+
+  # nginx:
+  #   restart: always
+  #   build: ./nginx
+  #   ports:
+  #     - "80:80"
+  #   links:
+  #     - "postgres"
+  #     - "api"
+  #     - "client"
+  #   depends_on:
+  #     - api
+  #     - client
+
   api:
     build: 
       context: ./server
@@ -46,10 +48,26 @@ services:
     tty: true
     # ports:
     #   - "80:3000"
+
     links:
       - "api"
     depends_on:
       - api
+  caddy:
+    image: caddy:2.6.2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - $PWD/Caddyfile.dev:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
 
 volumes:
   postgres-data:
+  caddy_data:
+  caddy_config:
+
