@@ -10,18 +10,18 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ./server/dbStuff/:/app/server/dbStuff/
 
-  # nginx:
-  #   restart: always
-  #   build: ./nginx
-  #   ports:
-  #     - "80:80"
-  #   links:
-  #     - "postgres"
-  #     - "api"
-  #     - "client"
-  #   depends_on:
-  #     - api
-  #     - client
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "5000:5000"
+    links:
+      - "postgres"
+      - "api"
+      - "client"
+    depends_on:
+      - api
+      - client
 
   api:
     build: 

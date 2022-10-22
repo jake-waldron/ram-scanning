@@ -1,9 +1,7 @@
-:80 {
-    handle {
-        reverse_proxy client:3000
-    }
+{
+    debug
+}
 
-    handle /api/* {
-        reverse_proxy api:8080
-    }
+:80 {
+    reverse_proxy nginx:5000
 }
