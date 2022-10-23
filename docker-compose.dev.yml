@@ -1,4 +1,5 @@
 services:
+
   postgres:
     image: postgres
     restart: always
@@ -9,19 +10,6 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./server/dbStuff/:/app/server/dbStuff/
-
-  nginx:
-    restart: always
-    build: ./nginx
-    ports:
-      - "5000:5000"
-    links:
-      - "postgres"
-      - "api"
-      - "client"
-    depends_on:
-      - api
-      - client
 
   api:
     build: 
@@ -37,6 +25,7 @@ services:
     depends_on:
       - postgres
     command: sh -c '/app/server/wait-for postgres:5432 -- npm start'
+
   client:
     build: 
       context: ./client
@@ -46,13 +35,11 @@ services:
       - /app/client/node_modules
     stdin_open: true
     tty: true
-    # ports:
-    #   - "80:3000"
-
     links:
       - "api"
     depends_on:
       - api
+      
   caddy:
     image: caddy:2.6.2
     restart: unless-stopped
