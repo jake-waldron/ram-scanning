@@ -8,70 +8,7 @@ import axios from 'axios';
 
 import PrintSVG from '../UI/PrintSVG';
 
-// const productListTest = [
-// 	{
-// 		number: '41370B',
-// 		name: 'FLEX FOAM-IT! 25 5-GAL PART-B (40# 18.14KGS)',
-// 		lotNumber: '2009164',
-// 		category: 'EXPANDABLE FOAM',
-// 		expMonths: 24,
-// 		age: 25,
-// 		monthsPastExpirationBy: 1,
-// 		status: 'EXPIRED',
-// 	},
-// 	{
-// 		number: '12345',
-// 		name: 'SOMETING FAKE 2',
-// 		lotNumber: '2009164',
-// 		category: 'EXPANDABLE FOAM',
-// 		expMonths: 24,
-// 		age: 25,
-// 		monthsUntilExpiration: 2,
-// 		expiresOnMonth: '12 / 22',
-// 		status: 'EXPIRING SOON',
-// 	},
-// 	{
-// 		number: '41370B',
-// 		name: 'SOME OTHER FAKE PRODUCT',
-// 		lotNumber: '2009164',
-// 		category: 'EXPANDABLE FOAM',
-// 		expMonths: 24,
-// 		age: 25,
-// 		monthsPastExpirationBy: 1,
-// 		status: 'OKAY',
-// 	},
-// 	{
-// 		number: '41323B',
-// 		name: 'FLEX FOAM-IT! 25 5-GAL PART-B (40# 18.14KGS)',
-// 		lotNumber: '2009164',
-// 		category: 'EXPANDABLE FOAM',
-// 		expMonths: 24,
-// 		age: 25,
-// 		monthsPastExpirationBy: 2,
-// 		status: 'EXPIRED',
-// 	},
-// 	{
-// 		number: '765756',
-// 		name: 'SOMETING FAKE 2',
-// 		lotNumber: '2009164',
-// 		category: 'EXPANDABLE FOAM',
-// 		expMonths: 24,
-// 		age: 25,
-// 		monthsUntilExpiration: 3,
-// 		expiresOnMonth: '12 / 22',
-// 		status: 'EXPIRING SOON',
-// 	},
-// 	{
-// 		number: '567543',
-// 		name: 'SOME OTHER FAKE PRODUCT',
-// 		lotNumber: '2009164',
-// 		category: 'EXPANDABLE FOAM',
-// 		expMonths: 24,
-// 		age: 25,
-// 		monthsPastExpirationBy: 1,
-// 		status: 'OKAY',
-// 	},
-// ];
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || '';
 
 function filterLists(productList) {
 	const removeDuplicates = _.uniqWith(productList, _.isEqual);
@@ -91,17 +28,10 @@ export default function ExpiredProducts({ productList, resetScanning }) {
 	const [currentTab, setCurrentTab] = useState('expired');
 	const [expiredProducts, expiringSoon] = filterLists(productList);
 
-	// const expiredProducts = productListTest.filter(
-	// 	(product) => product.status === 'EXPIRED'
-	// );
-	// const expiringSoon = productListTest.filter(
-	// 	(product) => product.status === 'EXPIRING SOON'
-	// );
-
 	async function downloadPDF() {
 		try {
 			const response = await axios({
-				url: '/api/scan/generate-pdf',
+				url: `${API_ENDPOINT}/api/scan/generate-pdf`,
 				method: 'post',
 				responseType: 'blob',
 				data: { expiredProducts, expiringSoon },
