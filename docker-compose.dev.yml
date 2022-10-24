@@ -39,8 +39,6 @@ services:
       - /app/client/node_modules
     stdin_open: true
     tty: true
-    links:
-      - "api"
     depends_on:
       - api
       
