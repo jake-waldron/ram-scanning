@@ -2,6 +2,8 @@ import './scanner.css';
 import axios from 'axios';
 import { useEffect, useRef, useState, useCallback } from 'react';
 
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || '';
+
 export default function Scanner({
 	isScanning,
 	startScanning,
@@ -42,7 +44,7 @@ export default function Scanner({
 		console.log(`Getting info for ${scannedItem}`);
 		try {
 			const { data: productInfo } = await axios.get(
-				`/api/scan/find-expired-product/`,
+				`${API_ENDPOINT}/api/scan/find-expired-product/`,
 				{ params: { scannedItem } }
 			);
 			console.log(productInfo);

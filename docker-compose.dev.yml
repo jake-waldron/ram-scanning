@@ -30,6 +30,10 @@ services:
     build: 
       context: ./client
       dockerfile: Dockerfile.dev
+    environment:
+      REACT_APP_API_ENDPOINT: "http://localhost:8080"
+    ports:
+      - "3000:3000"
     volumes:
       - ./client:/app/client
       - /app/client/node_modules
@@ -40,21 +44,7 @@ services:
     depends_on:
       - api
       
-  caddy:
-    image: caddy:2.6.2
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    volumes:
-      - $PWD/Caddyfile.dev:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
-
 volumes:
   postgres-data:
-  caddy_data:
-  caddy_config:
+
 

@@ -8,13 +8,6 @@ const categories = path.join(__dirname, '/dbStuff/categories.csv');
 
 async function startServer() {
 	try {
-		// await pool.connect({
-		// 	host: 'postgres',
-		// 	port: 5432,
-		// 	database: 'return_scanning',
-		// 	user: 'jakewaldron',
-		// 	password: 'password',
-		// });
 		await pool.connect({
 			host: process.env.DB_HOST,
 			port: process.env.DB_PORT,
